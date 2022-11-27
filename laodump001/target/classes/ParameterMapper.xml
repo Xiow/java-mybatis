@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.ParameterMapper">
+
+
+<!--    1.专门定义一个结果映射，在这个结果隐射当中指定数据库表的字名和java类的属性名的对应关系
+        2.type属性，用来指定POJO类的类名
+        3.id属性，指定ResultMap的唯一标识，这个ID将来要在select标签当中使用
+
+-->
+    <resultMap id="userResultMap" type="org.example.pojo.User">
+<!--   如果数据库有主键，在这里配置一个id标签， -->
+     <id property="id" column="id"></id>
+<!--       property 填写POJO类的属性,column填写数据库的字段名-->
+     <result property="" column=""></result>
+
+    </resultMap>
+
+
+
+
+
+    <select id="GetUserByUsername" resultType="org.example.pojo.User">
+
+    select * from user where name=#{username}
+
+    </select>
+
+    <insert id="InsertUserByMap">
+    insert into user(id,name,age,email) values (null,#{name},#{age},#{email})
+
+    </insert>
+
+
+    <insert id="InsertUserByPojo">
+        insert into user(id,name,age,email) values (null,#{name},#{age},#{email})
+
+    </insert>
+
+<!--    &#45;&#45;         select * from user where name=#{arg0} and age=#{arg1}-->
+    <select id="SelectUserByNameAndAge" resultType="org.example.pojo.User">
+
+        select * from user where name=#{param1} and age=#{param2}
+    </select>
+
+
+
+    <select id="SelectUserByNameAndAgeByParam" resultType="org.example.pojo.User">
+
+        select * from user where name=#{name} and age=#{age}
+    </select>
+
+    <select id="SelectById" resultType="org.example.pojo.User">
+
+        select * from user where id=#{id}
+    </select>
+
+<!--   模糊查询-->
+    <select id="SelectByBrandLike" resultType="org.example.pojo.User">
+        select * from user
+                 where name like "%"#{name}"%"
+    </select>
+
+    <select id="selectByPage" resultType="org.example.pojo.User">
+        select  * from user limit #{startIndex},#{pageSize}
+    </select>
+
+</mapper>

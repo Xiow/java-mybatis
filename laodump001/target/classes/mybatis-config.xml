@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+
+    <settings>
+<!--        在xml文件当中集成日志-->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+<!--    分页拦截器-->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
+    </plugins>
+    <environments default="development">
+<!--       在mybatis-config.xml配置文件当中，可以有多个environment,一个环境对应一个SqlSessionFactory对象,
+environments 中的default代表使用哪个环境的数据源（数据库的配置）-->
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://127.0.0.1:3306/mybatisplus?useUnicode=true&amp; characterEncoding=utf-8"/>
+                <property name="username" value="root"/>
+                <property name="password" value="123456"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <!--       在Mappers里面指定XXXMapper.xml文件的路径,由于resouce标签是从根路径（Resources）开始查找文件 -->
+        <mapper resource="UserMapper.xml"/>
+        <mapper resource="UserMapper1.xml"/>
+        <mapper resource="ParameterMapper.xml"/>
+
+    </mappers>
+</configuration>

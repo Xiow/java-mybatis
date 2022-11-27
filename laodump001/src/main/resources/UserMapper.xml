@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.mybatis.example.BlogMapper">
+<!--id 是这条SQL语句的唯一标识,id代表了这条sql语句-->
+    <insert id="insertUser">
+        insert into  user(id,name,age,email)
+        values(null,'老北京',999,'123@sina.com')
+    </insert>
+
+<!--    mybatis中的占位符 如果传进来的参数是map,通过key来获取数据-->
+    <insert id="insertUser1">
+        insert into  user(id,name,age,email)
+        values(null,#{k1},#{k2},#{k3})
+    </insert>
+
+    <!--    mybatis中的占位符 如果传进来的参数是对象,通过对象属性来获取数据-->
+    <insert id="insertUser2">
+        insert into  user(id,name,age,email)
+        values(null,#{name},#{age},#{email})
+    </insert>
+
+<!--   delete根据Id删除数据 如果占位符只有一个  #{}里面的key可以随便写 -->
+    <delete id="deleteUserById">
+    delete from user where  id=#{id}
+    </delete>
+
+<!--    修改数据通过ID-->
+    <update id="updateById">
+
+update user set name=#{name},age=#{age},email=#{email} where id=#{id}
+    </update>
+
+<!--   查找数据  result指定返回的数据集类型(全限定类名)-->
+    <select id="selectById" resultType="org.example.pojo.User">
+        select * from user where  id=#{id}
+    </select>
+
+    <select id="selectAll" resultType="org.example.pojo.User">
+        select * from user
+    </select>
+</mapper>
